@@ -1,5 +1,5 @@
 {
-  "name": "alurarestexpressmongodb",
+  "name": "3266-express-mongo",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
