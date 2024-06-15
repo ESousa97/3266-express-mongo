@@ -1,12 +1,31 @@
 # Projeto Alura Criando uma API Rest com Express e MongoDB
 
-Este projeto é uma aplicação web desenvolvida com Node.js e Express, utilizando MongoDB como banco de dados. O foco deste projeto é criar uma API REST para gerenciar um catálogo de livros.
+Este projeto consiste em uma aplicação web desenvolvida em Node.js com Express, destinada ao gerenciamento de livros e autores em uma livraria. Utiliza MongoDB como banco de dados para armazenar informações relativas a livros e autores.
+
+## Características
+
+- Cadastro, atualização e remoção de livros e autores.
+- Busca de livros por editora e ID.
+- Listagem de autores e livros.
+- Conexão segura ao banco de dados com variáveis de ambiente.
 
 ## Tecnologias Utilizadas
 
-- Node.js
-- Express
-- MongoDB
+- **Node.js**: Plataforma de desenvolvimento.
+- **Express.js:** Framework web utilizado para construir a API.
+- **MongoDB:** Banco de dados NoSQL utilizado para armazenamento de dados.
+- **Mongoose:** ODM (Object Data Modeling) utilizado para modelagem dos dados e conexão ao MongoDB.
+
+## Estrutura do Projeto
+
+- **`app.js`:** Configura e inicializa o servidor Express e a conexão com o banco de dados.
+
+- **`dbConnect.js`:** Gerencia a conexão com o banco de dados MongoDB.
+
+- **`routes/`:** Contém as rotas para gerenciamento de livros (`livrosRoutes.js`) e autores (`autoresRoutes.js`).
+- **`models/`:** Modelos de dados para Autores (`Autor.js`) e Livros (`Livros.js`).
+
+- **`controllers/`:** Controladores para lógica de negócio envolvendo Autores (`autorController.js`) e Livros (`livroController.js`).
 
 ## Funcionalidades
 
@@ -32,7 +51,13 @@ Para rodar este projeto localmente, siga os seguintes passos:
    ```bash
    npm install
    ```
-4. Inicie o servidor:
+4. Configure as variáveis de ambiente no arquivo `.env`:
+
+   ```plaintext
+   DB_CONNECTION_STRING=mongodb+srv://seu_usuario:sua_senha@seu_cluster.mongodb.net/meu_banco_de_dados
+   ```
+
+5. Inicie o servidor:
    ```bash
    npm run dev
    ```
@@ -41,17 +66,40 @@ O servidor estará disponível em `http://localhost:3000`.
 
 # Endpoints
 
-A API possui os seguintes endpoints:
+### A API possui os seguintes endpoints:
 
-- `GET /`: Retorna uma mensagem de boas-vindas.
-- `GET /livros`: Retorna todos os livros.
-- `GET /livros/:id`: Retorna um livro pelo ID.
-- `POST /livros`: Adiciona um novo livro.
-- `PUT /livros/:id`: Atualiza um livro pelo ID.
-- `DELETE /livros/:id`: Remove um livro pelo ID.
+#### Para Autores:
+
+- `GET /autores`: Listar todos os autores.
+
+- `GET /autores/`: Obter um autor específico pelo ID.
+
+- `POST /autores`: Cadastrar um novo autor.
+
+- `PUT /autores/`: Atualizar os dados de um autor específico.
+
+- `DELETE /autores/`: Excluir um autor pelo ID.
+
+#### Para Livros:
+
+`GET /livros:` Listar todos os livros.
+
+`GET /livros/busca:` Listar livros por editora especificada na query (exemplo: `/livros/busca?editora=NomeEditora`).
+
+`GET /livros/:` Obter um livro específico pelo ID.
+
+`POST /livros:` Cadastrar um novo livro.
+
+`PUT /livros/:` Atualizar os dados de um livro específico.
+
+`DELETE /livros/:` Excluir um livro pelo ID.
+
+#### Rota Geral:
+
+`GET /` - Retorna uma mensagem de boas-vindas, indicando que a aplicação está operacional.
 
 #
 
-## Autor
+### Autor
 
 - José Enoque
