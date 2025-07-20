@@ -1,4 +1,4 @@
-# 📚 API REST para Gerenciamento de Livraria
+# 📚 Projeto Alura Criando uma API Rest com Express e MongoDB
 
 <div align="center">
   
