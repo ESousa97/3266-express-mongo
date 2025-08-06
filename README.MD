@@ -432,4 +432,3 @@ Este projeto está licenciado sob a **Licença ISC** - veja o arquivo [LICENSE](
 
 
 > ✨ **Criado em:** 9 de jun. de 2024 às 17:35
-
