@@ -1,5 +1,5 @@
 import { autor } from "../models/Autor.js";
-import { isValidObjectId, sanitizeObject } from "../middlewares/validation.js";
+import { isValidObjectId, extractAutorFields } from "../middlewares/validation.js";
 
 class AutorController {
 
@@ -56,9 +56,14 @@ class AutorController {
         return res.status(404).json({ message: "Autor não encontrado" });
       }
 
-      // Sanitiza o body para prevenir injeção NoSQL
-      const dadosSanitizados = sanitizeObject(req.body);
-      await autor.findByIdAndUpdate(id, dadosSanitizados);
+      // Extrai apenas campos permitidos (allowlist) para prevenir injeção NoSQL
+      const camposPermitidos = extractAutorFields(req.body);
+
+      if (Object.keys(camposPermitidos).length === 0) {
+        return res.status(400).json({ message: "Nenhum campo válido para atualização" });
+      }
+
+      await autor.findByIdAndUpdate(id, { $set: camposPermitidos });
       res.status(200).json({ message: "autor atualizado" });
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha na atualização` });

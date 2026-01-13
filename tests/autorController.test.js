@@ -110,7 +110,8 @@ describe("AutorController", () => {
 
       await AutorController.atualizarAutor(mockReq, mockRes);
 
-      expect(autor.findByIdAndUpdate).toHaveBeenCalledWith(validObjectId, { nome: "Autor Atualizado" });
+      // Usa $set com allowlist de campos permitidos
+      expect(autor.findByIdAndUpdate).toHaveBeenCalledWith(validObjectId, { $set: { nome: "Autor Atualizado" } });
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ message: "autor atualizado" });
     });

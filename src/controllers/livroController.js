@@ -1,6 +1,6 @@
 import { autor } from "../models/Autor.js";
 import livro from "../models/Livros.js";
-import { isValidObjectId, sanitizeString, sanitizeObject } from "../middlewares/validation.js";
+import { isValidObjectId, sanitizeString, extractLivroFields } from "../middlewares/validation.js";
 
 class LivroController {
 
@@ -70,9 +70,14 @@ class LivroController {
         return res.status(404).json({ message: "Livro não encontrado" });
       }
 
-      // Sanitiza o body para prevenir injeção NoSQL
-      const dadosSanitizados = sanitizeObject(req.body);
-      await livro.findByIdAndUpdate(id, dadosSanitizados);
+      // Extrai apenas campos permitidos (allowlist) para prevenir injeção NoSQL
+      const camposPermitidos = extractLivroFields(req.body);
+
+      if (Object.keys(camposPermitidos).length === 0) {
+        return res.status(400).json({ message: "Nenhum campo válido para atualização" });
+      }
+
+      await livro.findByIdAndUpdate(id, { $set: camposPermitidos });
       res.status(200).json({ message: "livro atualizado" });
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha na atualização` });
