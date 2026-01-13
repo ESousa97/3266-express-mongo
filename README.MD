@@ -1,9 +1,12 @@
 # 📚 Projeto Alura Criando uma API Rest com Express e MongoDB
 
 <div align="center">
-  
+
   **Estruturando o Conhecimento: Uma Arquitetura de API para o Mundo Literário**
-  
+
+  [![CI](https://github.com/ESousa97/3266-express-mongo/actions/workflows/ci.yml/badge.svg)](https://github.com/ESousa97/3266-express-mongo/actions/workflows/ci.yml)
+  [![CodeQL](https://github.com/ESousa97/3266-express-mongo/actions/workflows/codeql.yml/badge.svg)](https://github.com/ESousa97/3266-express-mongo/actions/workflows/codeql.yml)
+  [![codecov](https://codecov.io/gh/ESousa97/3266-express-mongo/branch/main/graph/badge.svg)](https://codecov.io/gh/ESousa97/3266-express-mongo)
   [![GitHub last commit](https://img.shields.io/github/last-commit/ESousa97/3266-express-mongo?style=for-the-badge&color=blue)](https://github.com/ESousa97/3266-express-mongo)
   [![GitHub top language](https://img.shields.io/github/languages/top/ESousa97/3266-express-mongo?style=for-the-badge&color=green)](https://github.com/ESousa97/3266-express-mongo)
   [![GitHub repo size](https://img.shields.io/github/repo-size/ESousa97/3266-express-mongo?style=for-the-badge&color=orange)](https://github.com/ESousa97/3266-express-mongo)
