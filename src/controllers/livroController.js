@@ -107,7 +107,8 @@ class LivroController {
         return res.status(400).json({ message: "Parâmetro 'editora' é obrigatório" });
       }
 
-      const livrosPorEditora = await livro.find({ editora: editora });
+      // Usa o operador $eq para garantir que o valor seja tratado como literal
+      const livrosPorEditora = await livro.find({ editora: { $eq: editora } });
       res.status(200).json(livrosPorEditora);
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha na busca` });

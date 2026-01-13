@@ -37,10 +37,13 @@ export function validateObjectId(paramName = "id") {
 /**
  * Sanitiza strings para prevenir injeção
  * @param {string} input - String a ser sanitizada
- * @returns {string} - String sanitizada
+ * @returns {string} - String sanitizada (sempre retorna uma string)
  */
 export function sanitizeString(input) {
-  if (typeof input !== "string") return input;
+  if (typeof input !== "string") {
+    // Garante que valores não string não sejam propagados para consultas
+    return "";
+  }
   // Remove caracteres que podem ser usados em injeção NoSQL
   return input.replace(/[${}]/g, "");
 }
