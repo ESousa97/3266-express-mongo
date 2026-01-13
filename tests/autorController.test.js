@@ -65,15 +65,25 @@ describe("AutorController", () => {
 
   describe("listarAutorPorId", () => {
     test("deve retornar autor por ID com status 200", async () => {
-      const autorMock = { _id: "123", nome: "Autor Teste" };
-      mockReq.params.id = "123";
+      const validObjectId = "507f1f77bcf86cd799439011";
+      const autorMock = { _id: validObjectId, nome: "Autor Teste" };
+      mockReq.params.id = validObjectId;
       autor.findById.mockResolvedValue(autorMock);
 
       await AutorController.listarAutorPorId(mockReq, mockRes);
 
-      expect(autor.findById).toHaveBeenCalledWith("123");
+      expect(autor.findById).toHaveBeenCalledWith(validObjectId);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith(autorMock);
+    });
+
+    test("deve retornar erro 400 para ID inválido", async () => {
+      mockReq.params.id = "invalid-id";
+
+      await AutorController.listarAutorPorId(mockReq, mockRes);
+
+      expect(autor.findById).not.toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(400);
     });
   });
 
@@ -92,28 +102,51 @@ describe("AutorController", () => {
 
   describe("atualizarAutor", () => {
     test("deve atualizar autor com status 200", async () => {
-      mockReq.params.id = "123";
+      const validObjectId = "507f1f77bcf86cd799439011";
+      mockReq.params.id = validObjectId;
       mockReq.body = { nome: "Autor Atualizado" };
+      autor.findById.mockResolvedValue({ _id: validObjectId });
       autor.findByIdAndUpdate.mockResolvedValue({});
 
       await AutorController.atualizarAutor(mockReq, mockRes);
 
-      expect(autor.findByIdAndUpdate).toHaveBeenCalledWith("123", { nome: "Autor Atualizado" });
+      expect(autor.findByIdAndUpdate).toHaveBeenCalledWith(validObjectId, { nome: "Autor Atualizado" });
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ message: "autor atualizado" });
+    });
+
+    test("deve retornar erro 400 para ID inválido", async () => {
+      mockReq.params.id = "invalid-id";
+      mockReq.body = { nome: "Autor Atualizado" };
+
+      await AutorController.atualizarAutor(mockReq, mockRes);
+
+      expect(autor.findByIdAndUpdate).not.toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(400);
     });
   });
 
   describe("excluirAutor", () => {
     test("deve excluir autor com status 200", async () => {
-      mockReq.params.id = "123";
+      const validObjectId = "507f1f77bcf86cd799439011";
+      mockReq.params.id = validObjectId;
+      autor.findById.mockResolvedValue({ _id: validObjectId });
       autor.findByIdAndDelete.mockResolvedValue({});
 
       await AutorController.excluirAutor(mockReq, mockRes);
 
-      expect(autor.findByIdAndDelete).toHaveBeenCalledWith("123");
+      expect(autor.findByIdAndDelete).toHaveBeenCalledWith(validObjectId);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ message: "autor excluído com sucesso" });
+    });
+
+    test("deve retornar erro 400 para ID inválido", async () => {
+      mockReq.params.id = "invalid-id";
+
+      await AutorController.excluirAutor(mockReq, mockRes);
+
+      expect(autor.findByIdAndDelete).not.toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(400);
     });
   });
 });

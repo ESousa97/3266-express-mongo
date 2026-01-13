@@ -1,4 +1,5 @@
 import { autor } from "../models/Autor.js";
+import { isValidObjectId } from "../middlewares/validation.js";
 
 class AutorController {
 
@@ -14,7 +15,18 @@ class AutorController {
   static async listarAutorPorId (req, res) {
     try {
       const id = req.params.id;
+
+      // Validação de ObjectId já feita pelo middleware, mas dupla verificação
+      if (!isValidObjectId(id)) {
+        return res.status(400).json({ message: "ID inválido" });
+      }
+
       const autorEncontrado = await autor.findById(id);
+
+      if (!autorEncontrado) {
+        return res.status(404).json({ message: "Autor não encontrado" });
+      }
+
       res.status(200).json(autorEncontrado);
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha na requisição do autor` });
@@ -33,6 +45,17 @@ class AutorController {
   static async atualizarAutor (req, res) {
     try {
       const id = req.params.id;
+
+      // Validação de ObjectId já feita pelo middleware, mas dupla verificação
+      if (!isValidObjectId(id)) {
+        return res.status(400).json({ message: "ID inválido" });
+      }
+
+      const autorExistente = await autor.findById(id);
+      if (!autorExistente) {
+        return res.status(404).json({ message: "Autor não encontrado" });
+      }
+
       await autor.findByIdAndUpdate(id, req.body);
       res.status(200).json({ message: "autor atualizado" });
     } catch (erro) {
@@ -43,6 +66,17 @@ class AutorController {
   static async excluirAutor (req, res) {
     try {
       const id = req.params.id;
+
+      // Validação de ObjectId já feita pelo middleware, mas dupla verificação
+      if (!isValidObjectId(id)) {
+        return res.status(400).json({ message: "ID inválido" });
+      }
+
+      const autorExistente = await autor.findById(id);
+      if (!autorExistente) {
+        return res.status(404).json({ message: "Autor não encontrado" });
+      }
+
       await autor.findByIdAndDelete(id);
       res.status(200).json({ message: "autor excluído com sucesso" });
     } catch (erro) {

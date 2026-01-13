@@ -28,6 +28,16 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 ### Security
 - Corrigida vulnerabilidade HIGH no pacote `qs` (CVE-2022-24999)
 - Adicionado npm audit no workflow de CI
+- **CRITICAL**: Implementado Rate Limiting em todas as rotas da API (12 vulnerabilidades corrigidas)
+  - `apiLimiter`: 100 requisições/15min para rotas gerais
+  - `readLimiter`: 50 requisições/15min para operações GET
+  - `writeLimiter`: 20 requisições/15min para operações POST/PUT/DELETE
+- **CRITICAL**: Corrigida vulnerabilidade de NoSQL Injection (6 vulnerabilidades corrigidas)
+  - Validação de ObjectId antes de queries no MongoDB
+  - Sanitização de inputs do usuário com `express-mongo-sanitize`
+  - Validação de parâmetros `editora` para prevenir injeção
+- Adicionado `helmet` para headers HTTP seguros
+- Criados middlewares de segurança: `validation.js` e `rateLimiter.js`
 
 ### Fixed
 - Corrigido typo em mensagens de erro dos controllers

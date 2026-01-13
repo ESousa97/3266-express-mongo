@@ -72,28 +72,48 @@ describe("LivroController", () => {
 
   describe("listarLivroPorId", () => {
     test("deve retornar livro por ID com status 200", async () => {
-      const livroMock = { _id: "123", titulo: "Livro Teste" };
-      mockReq.params.id = "123";
+      const validObjectId = "507f1f77bcf86cd799439011";
+      const livroMock = { _id: validObjectId, titulo: "Livro Teste" };
+      mockReq.params.id = validObjectId;
       livro.findById.mockResolvedValue(livroMock);
 
       await LivroController.listarLivroPorId(mockReq, mockRes);
 
-      expect(livro.findById).toHaveBeenCalledWith("123");
+      expect(livro.findById).toHaveBeenCalledWith(validObjectId);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith(livroMock);
+    });
+
+    test("deve retornar erro 400 para ID inválido", async () => {
+      mockReq.params.id = "invalid-id";
+
+      await LivroController.listarLivroPorId(mockReq, mockRes);
+
+      expect(livro.findById).not.toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(400);
     });
   });
 
   describe("excluirLivro", () => {
     test("deve excluir livro com status 200", async () => {
-      mockReq.params.id = "123";
+      const validObjectId = "507f1f77bcf86cd799439011";
+      mockReq.params.id = validObjectId;
       livro.findByIdAndDelete.mockResolvedValue({});
 
       await LivroController.excluirLivro(mockReq, mockRes);
 
-      expect(livro.findByIdAndDelete).toHaveBeenCalledWith("123");
+      expect(livro.findByIdAndDelete).toHaveBeenCalledWith(validObjectId);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({ message: "livro excluído com sucesso" });
+    });
+
+    test("deve retornar erro 400 para ID inválido", async () => {
+      mockReq.params.id = "invalid-id";
+
+      await LivroController.excluirLivro(mockReq, mockRes);
+
+      expect(livro.findByIdAndDelete).not.toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(400);
     });
   });
 
