@@ -1,5 +1,5 @@
 import { autor } from "../models/Autor.js";
-import { isValidObjectId } from "../middlewares/validation.js";
+import { isValidObjectId, sanitizeObject } from "../middlewares/validation.js";
 
 class AutorController {
 
@@ -56,7 +56,9 @@ class AutorController {
         return res.status(404).json({ message: "Autor não encontrado" });
       }
 
-      await autor.findByIdAndUpdate(id, req.body);
+      // Sanitiza o body para prevenir injeção NoSQL
+      const dadosSanitizados = sanitizeObject(req.body);
+      await autor.findByIdAndUpdate(id, dadosSanitizados);
       res.status(200).json({ message: "autor atualizado" });
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha na atualização` });

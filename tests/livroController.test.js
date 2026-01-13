@@ -125,9 +125,19 @@ describe("LivroController", () => {
 
       await LivroController.listaLivrosPorEditora(mockReq, mockRes);
 
-      expect(livro.find).toHaveBeenCalledWith({ editora: "Aleph" });
+      // Usa $eq para query segura contra NoSQL injection
+      expect(livro.find).toHaveBeenCalledWith({ editora: { $eq: "Aleph" } });
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith(livrosMock);
+    });
+
+    test("deve retornar erro 400 quando editora não é informada", async () => {
+      mockReq.query = {};
+
+      await LivroController.listaLivrosPorEditora(mockReq, mockRes);
+
+      expect(livro.find).not.toHaveBeenCalled();
+      expect(mockRes.status).toHaveBeenCalledWith(400);
     });
   });
 });

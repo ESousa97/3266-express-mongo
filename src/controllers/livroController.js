@@ -1,6 +1,6 @@
 import { autor } from "../models/Autor.js";
 import livro from "../models/Livros.js";
-import { isValidObjectId, sanitizeString } from "../middlewares/validation.js";
+import { isValidObjectId, sanitizeString, sanitizeObject } from "../middlewares/validation.js";
 
 class LivroController {
 
@@ -70,7 +70,9 @@ class LivroController {
         return res.status(404).json({ message: "Livro não encontrado" });
       }
 
-      await livro.findByIdAndUpdate(id, req.body);
+      // Sanitiza o body para prevenir injeção NoSQL
+      const dadosSanitizados = sanitizeObject(req.body);
+      await livro.findByIdAndUpdate(id, dadosSanitizados);
       res.status(200).json({ message: "livro atualizado" });
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha na atualização` });
@@ -101,13 +103,17 @@ class LivroController {
   static async listaLivrosPorEditora (req, res) {
     try {
       // Sanitiza o parâmetro de busca para prevenir injeção NoSQL
-      const editora = sanitizeString(req.query.editora || "");
+      const editoraInput = req.query.editora;
 
-      if (!editora) {
-        return res.status(400).json({ message: "Parâmetro 'editora' é obrigatório" });
+      if (!editoraInput || typeof editoraInput !== "string") {
+        return res.status(400).json({ message: "Parâmetro 'editora' é obrigatório e deve ser uma string" });
       }
 
-      const livrosPorEditora = await livro.find({ editora: editora });
+      // Sanitiza e garante que é uma string simples
+      const editora = sanitizeString(String(editoraInput));
+
+      // Usa $eq para garantir comparação exata e segura
+      const livrosPorEditora = await livro.find({ editora: { $eq: editora } });
       res.status(200).json(livrosPorEditora);
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha na busca` });

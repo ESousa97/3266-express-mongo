@@ -46,6 +46,36 @@ export function sanitizeString(input) {
 }
 
 /**
+ * Sanitiza um objeto recursivamente para prevenir injeção NoSQL
+ * Remove propriedades que começam com $ ou contêm caracteres perigosos
+ * @param {object} obj - Objeto a ser sanitizado
+ * @returns {object} - Objeto sanitizado
+ */
+export function sanitizeObject(obj) {
+  if (obj === null || obj === undefined) return obj;
+  if (typeof obj !== "object") return obj;
+  if (Array.isArray(obj)) return obj.map(sanitizeObject);
+
+  const sanitized = {};
+  for (const key of Object.keys(obj)) {
+    // Rejeita chaves que começam com $ (operadores MongoDB)
+    if (key.startsWith("$")) continue;
+    // Rejeita chaves que contêm . (acesso a campos aninhados maliciosos)
+    if (key.includes(".") && key !== "_id") continue;
+
+    const value = obj[key];
+    if (typeof value === "string") {
+      sanitized[key] = sanitizeString(value);
+    } else if (typeof value === "object" && value !== null) {
+      sanitized[key] = sanitizeObject(value);
+    } else {
+      sanitized[key] = value;
+    }
+  }
+  return sanitized;
+}
+
+/**
  * Middleware para sanitizar query strings
  */
 export function sanitizeQuery(req, res, next) {
