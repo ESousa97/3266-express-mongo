@@ -23,7 +23,7 @@ Este projeto adota um Código de Conduta. Ao participar, você concorda em segui
 ```bash
 # Fork o repositório no GitHub
 # Clone seu fork
-git clone https://github.com/seu-usuario/3266-express-mongo.git
+git clone https://github.com/ESousa97/3266-express-mongo.git
 cd 3266-express-mongo
 
 # Adicione o repositório original como upstream
