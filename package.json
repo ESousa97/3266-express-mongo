@@ -32,14 +32,14 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "dotenv": "^17.2.4",
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
     "mongodb": "^7.1.0",
-    "mongoose": "^9.1.6",
-    "nodemon": "^3.1.11"
+    "mongoose": "^9.2.1",
+    "nodemon": "^3.1.14"
   },
   "devDependencies": {
     "eslint": "^9.39.2",
