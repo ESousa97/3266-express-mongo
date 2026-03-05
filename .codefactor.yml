@@ -1,0 +1,3 @@
+version: "1.0"
+ExcludePatterns:
+  - "eslint.config.js"
