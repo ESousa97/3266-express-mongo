@@ -1,3 +1,5 @@
+> **⚠️ PROJETO ARQUIVADO:** Este repositório não está mais ativo e permanece público apenas para fins de estudo. Não há garantia de resposta, revisão ou merge para novos PRs.
+
 ## 📝 Descrição
 
 <!-- Descreva suas mudanças em detalhes -->

@@ -7,6 +7,9 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ## [Unreleased]
 
+### Changed
+- Repositório arquivado (2026-03-05): Dependabot desabilitado, avisos adicionados aos documentos de governança e templates de PR/Issue. Reconfigurado para rejeitar novas issues em branco.
+
 ### Added
 - Configuração de ESLint para qualidade de código
 - Configuração de Prettier para formatação

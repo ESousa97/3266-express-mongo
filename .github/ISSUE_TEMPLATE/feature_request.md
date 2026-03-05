@@ -7,6 +7,9 @@ assignees: ''
 
 ---
 
+> **⚠️ PROJETO ARQUIVADO:** Este repositório não está mais ativo e permanece público apenas para fins de estudo. Não há garantia de resposta, revisão ou correção para novas issues.
+
+
 ## 🚀 Descrição da Feature
 Uma descrição clara e concisa da feature que você gostaria.
 

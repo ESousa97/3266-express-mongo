@@ -1,5 +1,9 @@
 # 📜 Código de Conduta do Contribuidor
 
+> [!WARNING]
+> ⚠️ **Projeto Arquivado**
+> Este repositório não está mais ativo e permanece público apenas para fins de estudo. Não há garantia de resposta, revisão ou correção para quaisquer interações.
+
 ## 🎯 Nosso Compromisso
 
 No interesse de promover um ambiente aberto e acolhedor, nós, como contribuidores e mantenedores, nos comprometemos a tornar a participação em nosso projeto e em nossa comunidade uma experiência livre de assédio para todos, independentemente de idade, tamanho corporal, deficiência, etnia, características sexuais, identidade e expressão de gênero, nível de experiência, educação, status socioeconômico, nacionalidade, aparência pessoal, raça, religião ou identidade e orientação sexual.

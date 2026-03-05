@@ -1,5 +1,9 @@
 # 🤝 Guia de Contribuição
 
+> [!WARNING]
+> ⚠️ **Projeto Arquivado**
+> Este repositório não está mais ativo e permanece público apenas para fins de estudo. Não há garantia de resposta, revisão ou correção para PRs, Issues ou outras contribuições.
+
 Obrigado pelo interesse em contribuir com o projeto **3266-express-mongo**! Este documento fornece as diretrizes para contribuir de forma efetiva.
 
 ## 📋 Sumário
